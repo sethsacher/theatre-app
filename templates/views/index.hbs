@@ -2,22 +2,23 @@
 
 <html>
     <head>
-        <title>Weather</title>
-        <link rel="icon" href="/img/weather.png">
+        <title>Search</title>
+        <link rel="icon" href="/img/favicon.ico">
         <link rel="stylesheet" href="/css/styles.css">
     </head>
     <body>
         <div class="main-content">
             {{>header}}
 
-            <p>Some other stuff</p>
+            <p>Search the "Theaters" table by a given city.</p>
 
             <form>
-                <input type="text" placeholder="Location">
+                <input type="text" placeholder="City">
                 <button>Search</button>
 
                 <p id="message-1"></p>
                 <p id="message-2"></p>
+                <p id="showData"></p>
             </form>
         </div>
 

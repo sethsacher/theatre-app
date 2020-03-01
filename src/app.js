@@ -1,8 +1,11 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
-const forecast = require('./utils/forecast')
-const geocode = require('./utils/geocode')
+const Airtable = require('airtable')
+const theatre = require('./utils/theatre')
+
+// TODO: Better API Key management
+const base = new Airtable({ apiKey: 'keyFymrzfuzPVo2MQ' }).base('appLK1Wn7C7Q2QaOh');
 
 const app = express()
 // Default to 3000 if PORT not set
@@ -22,14 +25,14 @@ app.use(express.static(path.join(__dirname, '../public')))
 
 app.get('', (req, res) => {
     res.render('index', {
-        title: 'Weather app',
+        title: 'Theatre Search',
         name: 'Seth Sacher'
     })
 })
 
 app.get('/about', (req, res) => {
     res.render('about', {
-        title: 'About Me',
+        title: 'About',
         name: 'Seth Sacher'
     })
 })
@@ -37,49 +40,29 @@ app.get('/about', (req, res) => {
 app.get('/help', (req, res) => {
     res.render('help', {
         helpText: 'Come here to get help',
-        title: 'Help page',
+        title: 'Help',
         name: 'Seth Sacher'
     })
 })
 
-app.get('/weather', (req, res) => {
-    if(!req.query.address) {
+app.get('/theatre', (req, res) => {
+    if(!req.query.city) {
         return res.send({
-            error: 'You must provide an address.'
+            error: 'You must provide a city.'
         })
     }
 
-    geocode(req.query.address, (error, { latitude, longitude, location } = {}) => {
+    theatre(base, req.query.city, (error, records) => {
         if (error) {
             // Since JSON field and variable have the same name,
             // we can just write "error" once
             return res.send({error})
-        }
+        } 
 
-        forecast(latitude, longitude, (error, dataForecast) => {
-            if (error) {
-                return res.send({error})
-            }
-
-            res.send({
-                forecast: dataForecast,
-                location,
-                address: req.query.address
-            })
+        res.send({
+            records
         })
     }) 
-})
-
-app.get('/products', (req, res) => {
-    if (!req.query.search) {
-        return res.send({
-            error: 'You must provide a search term.'
-        })
-    }
-
-    res.send({
-        products: []
-    })
 })
 
 app.get('/help/*', (req, res) => {
