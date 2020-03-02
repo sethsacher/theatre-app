@@ -1,12 +1,13 @@
 // NOTE: This is client-side JS
 // The console.log() calls show up in the browser's console
 
-const weatherForm = document.querySelector('form')
+const theatreForm = document.querySelector('form')
 const search = document.querySelector('input')
 const message1 = document.querySelector('#message-1')
 const message2 = document.querySelector('#message-2')
+const showData = document.getElementById("showData")
 
-weatherForm.addEventListener('submit', (e) => {
+theatreForm.addEventListener('submit', (e) => {
     // Stops page from refreshing
     e.preventDefault()
 
@@ -14,6 +15,7 @@ weatherForm.addEventListener('submit', (e) => {
 
     message1.textContent = 'Loading...'
     message2.textContent = undefined
+    showData.textContent = undefined
 
     fetch('/theatre?city=' + location).then((res) => {
 
@@ -21,8 +23,12 @@ weatherForm.addEventListener('submit', (e) => {
             if (data.error) {
                 message1.textContent = data.error
                 message2.textContent = undefined
+                showData.textContent = undefined
             } else {
                 // message1.textContent = JSON.stringify(data.records)
+                message1.textContent = undefined
+                message2.textContent = undefined
+                showData.textContent = undefined
                 createTableFromJSON(data.records)
             }
         })

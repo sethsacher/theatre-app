@@ -3,7 +3,8 @@ const theatre = (base, city, callback) => {
     const theatres = base('Theatres')
 
     theatres.select({
-        view: 'Grid view'
+        view: 'Grid view',
+        filterByFormula: '{City} = "' + city + '"'
     }).firstPage((err, records) => {
         if (err) {
           console.error(err)
@@ -12,9 +13,9 @@ const theatre = (base, city, callback) => {
 
         const fields = records.map(a => a.fields)
 
-        // if(!records || !records.airtableData || !records.airtableData.fields) {
-        //     return callback ('Records not found', undefined)
-        // }
+        if(!fields || fields.length === 0) {
+            return callback('No results were found', undefined)
+        }
 
         //all records are in the `records` array, do something with it
         callback(undefined, fields)
