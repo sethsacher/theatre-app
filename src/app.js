@@ -2,10 +2,11 @@ const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
 const Airtable = require('airtable')
-const dotenv = require('dotenv')
 const theatre = require('./utils/theatre')
 
-dotenv.config();
+if(process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
 
 // TODO: Better API Key management
 const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);

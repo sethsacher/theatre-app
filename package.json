@@ -4,20 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js -e js,hbs"
+    "start": "cross-env NODE_ENV=production node src/app.js",
+    "dev": "cross-env NODE_ENV=dev nodemon src/app.js -e js,hbs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "airtable": "^0.8.1",
+    "cross-env": "^7.0.0",
     "express": "^4.16.4",
     "hbs": "^4.0.1",
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.2"
   }
 }
