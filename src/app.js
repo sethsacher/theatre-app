@@ -2,10 +2,13 @@ const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
 const Airtable = require('airtable')
+const dotenv = require('dotenv')
 const theatre = require('./utils/theatre')
 
+dotenv.config();
+
 // TODO: Better API Key management
-const base = new Airtable({ apiKey: 'keyFymrzfuzPVo2MQ' }).base('appLK1Wn7C7Q2QaOh');
+const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
 
 const app = express()
 // Default to 3000 if PORT not set
