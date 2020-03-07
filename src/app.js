@@ -34,17 +34,45 @@ app.get('', (req, res) => {
     })
 })
 
-app.get('/about', (req, res) => {
-    res.render('about', {
-        title: 'About',
+// app.get('/help', (req, res) => {
+//     res.render('help', {
+//         helpText: 'Come here to get help',
+//         title: 'Help',
+//         name: 'Seth Sacher'
+//     })
+// })
+
+app.get('/history', (req, res) => {
+    res.render('history', {
+        title: 'A Short History of Road Houses and Theatre Circuits',
         name: 'Seth Sacher'
     })
 })
 
-app.get('/help', (req, res) => {
-    res.render('help', {
-        helpText: 'Come here to get help',
-        title: 'Help',
+app.get('/circuits', (req, res) => {
+    res.render('circuits', {
+        title: 'Sample Circuits',
+        name: 'Seth Sacher'
+    })
+})
+
+app.get('/guide', (req, res) => {
+    res.render('guide', {
+        title: 'The Julius Cahn Official Theatrical Guides',
+        name: 'Seth Sacher'
+    })
+})
+
+app.get('/about', (req, res) => {
+    res.render('about', {
+        title: 'What’s in this database',
+        name: 'Seth Sacher'
+    })
+})
+
+app.get('/additional-information', (req, res) => {
+    res.render('additional-information', {
+        title: 'Additional Information and Other Resources',
         name: 'Seth Sacher'
     })
 })
@@ -69,13 +97,13 @@ app.get('/theatre', (req, res) => {
     }) 
 })
 
-app.get('/help/*', (req, res) => {
-    res.render('error', {
-        errorText: 'Help article not found',
-        title: '404 Help',
-        name: 'Seth Sacher'
-    })
-})
+// app.get('/help/*', (req, res) => {
+//     res.render('error', {
+//         errorText: 'Help article not found',
+//         title: '404 Help',
+//         name: 'Seth Sacher'
+//     })
+// })
 
 app.get('*', (req, res) => {
     res.render('error', {
