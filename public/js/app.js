@@ -51,7 +51,8 @@ theatreForm.addEventListener('submit', (e) => {
         name: document.getElementById('name').value,
         vaudeville: document.getElementById('vaudeville').value,
         manager: document.getElementById('manager').value,
-        year: document.getElementById('year').value
+        year: document.getElementById('year').value,
+        circuit: document.getElementById('circuit').value
     }
 
     const isEmpty = (value) => {
