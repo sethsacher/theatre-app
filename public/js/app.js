@@ -7,17 +7,43 @@ const message1 = document.querySelector('#message-1')
 const message2 = document.querySelector('#message-2')
 const showData = document.getElementById("showData")
 
+// Load reference data
+const addDropdownOption = (elementId, newOption) => {
+    var select = document.getElementById(elementId)
+    select.options[select.options.length] = new Option(newOption)
+}
+
+addDropdownOption('state', '')
+addDropdownOption('state', 'MA')
+
+// Get data on Submit
 theatreForm.addEventListener('submit', (e) => {
     // Stops page from refreshing
     e.preventDefault()
-
-    const location = search.value
 
     message1.textContent = 'Loading...'
     message2.textContent = undefined
     showData.textContent = undefined
 
-    fetch('/theatre?city=' + location).then((res) => {
+    // Construct search query
+    const searchQuery = {
+        city: document.getElementById('city').value,
+        state: document.getElementById('state').value
+    }
+
+    const isEmpty = (value) => {
+        return value == null || value == "";
+    }
+
+    for(key in searchQuery)
+        if(isEmpty(searchQuery[key]))
+            delete searchQuery[key]; 
+
+    const params = $.param(searchQuery)
+
+    // console.log('Theater Search Params: ' + params)
+
+    fetch('/theatre?' + params).then((res) => {
 
         res.json().then((data) => {
             if (data.error) {
@@ -32,7 +58,9 @@ theatreForm.addEventListener('submit', (e) => {
                 createTableFromJSON(data.records)
             }
         })
+
     })
+
 })
 
 const createTableFromJSON = (json) => {

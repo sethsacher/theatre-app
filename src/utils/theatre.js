@@ -1,23 +1,47 @@
-const theatre = (base, city, callback) => {
+const theatre = (base, params, callback) => {
+
+    // if (!params) { return callback('No parameters provided', undefined) }
 
     const theatres = base('Theatres')
 
+    // Array of basic search terms
+    const searchArray = [
+        (params.city ? '{City} = "' + params.city + '"' : ''),
+        (params.state ? '{State} = "' + params.state + '"' : '')
+    ]
+
+    // Remove null search terms
+    const filteredArray = searchArray.filter((term) => {
+        return term !== ''
+    })
+
+    // Construct Airtable query
+    var filter = 'AND('
+    var count = 1
+    for (const term of filteredArray) {
+        filter = filter + term + (filteredArray.length === count ? '' : ',')
+        count++
+    }
+    filter = filter + ')'
+
+    console.log('Airtable Query: ' + filter)
+    
+    // Get data from Airtable
     theatres.select({
         view: 'Grid view',
-        filterByFormula: '{City} = "' + city + '"'
+        filterByFormula: filter
     }).firstPage((err, records) => {
         if (err) {
-          console.error(err)
-          return callback('Error occurred', undefined)
+            console.error(err)
+            return callback('Error occurred', undefined)
         }
 
         const fields = records.map(a => a.fields)
 
-        if(!fields || fields.length === 0) {
+        if (!fields || fields.length === 0) {
             return callback('No results were found', undefined)
         }
 
-        //all records are in the `records` array, do something with it
         callback(undefined, fields)
     })
 

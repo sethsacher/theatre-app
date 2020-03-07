@@ -1,8 +1,10 @@
 const path = require('path')
+const url = require('url')
 const express = require('express')
 const hbs = require('hbs')
 const Airtable = require('airtable')
 const theatre = require('./utils/theatre')
+const refData = require('./utils/refData')
 
 if(process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
@@ -78,16 +80,21 @@ app.get('/additional-information', (req, res) => {
 })
 
 app.get('/theatre', (req, res) => {
-    if(!req.query.city) {
+   
+    const isEmpty = (obj) => {
+        return Object.keys(obj).length === 0;
+    }
+
+    if(isEmpty(req.query)) {
         return res.send({
-            error: 'You must provide a city.'
+            error: 'You must provide a search term.'
         })
     }
 
-    theatre(base, req.query.city, (error, records) => {
+    var params = url.parse(req.url, true).query
+
+    theatre(base, params, (error, records) => {
         if (error) {
-            // Since JSON field and variable have the same name,
-            // we can just write "error" once
             return res.send({error})
         } 
 
@@ -95,6 +102,14 @@ app.get('/theatre', (req, res) => {
             records
         })
     }) 
+})
+
+app.get('/refData', (req, res) => {
+    refData((error, refData) => {
+        res.send({
+            refData
+        }) 
+    })
 })
 
 // app.get('/help/*', (req, res) => {
