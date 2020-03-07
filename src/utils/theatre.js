@@ -10,7 +10,8 @@ const theatre = (base, params, callback) => {
         (params.state ? '{State} = "' + params.state + '"' : ''),
         (params.name ? '{Theatre} = "' + params.name + '"' : ''),
         (params.vaudeville ? '{Primarily Vaudeville} = "' + params.vaudeville + '"' : ''),
-        (params.manager ? '{Manager} = "' + params.manager + '"' : '')
+        (params.manager ? '{Manager} = "' + params.manager + '"' : ''),
+        (params.year ? '{Years active} = "' + params.year + '"' : '')
     ]
 
     // Remove null search terms

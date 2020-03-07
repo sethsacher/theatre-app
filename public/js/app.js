@@ -50,7 +50,8 @@ theatreForm.addEventListener('submit', (e) => {
         state: document.getElementById('state').value,
         name: document.getElementById('name').value,
         vaudeville: document.getElementById('vaudeville').value,
-        manager: document.getElementById('manager').value
+        manager: document.getElementById('manager').value,
+        year: document.getElementById('year').value
     }
 
     const isEmpty = (value) => {
