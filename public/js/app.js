@@ -49,7 +49,8 @@ theatreForm.addEventListener('submit', (e) => {
         city: document.getElementById('city').value,
         state: document.getElementById('state').value,
         name: document.getElementById('name').value,
-        vaudeville: document.getElementById('vaudeville').value
+        vaudeville: document.getElementById('vaudeville').value,
+        manager: document.getElementById('manager').value
     }
 
     const isEmpty = (value) => {
