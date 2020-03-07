@@ -43,7 +43,8 @@ theatreForm.addEventListener('submit', (e) => {
     // Construct search query
     const searchQuery = {
         city: document.getElementById('city').value,
-        state: document.getElementById('state').value
+        state: document.getElementById('state').value,
+        name: document.getElementById('name').value
     }
 
     const isEmpty = (value) => {

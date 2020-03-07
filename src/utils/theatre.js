@@ -7,7 +7,8 @@ const theatre = (base, params, callback) => {
     // Array of basic search terms
     const searchArray = [
         (params.city ? '{City} = "' + params.city + '"' : ''),
-        (params.state ? '{State} = "' + params.state + '"' : '')
+        (params.state ? '{State} = "' + params.state + '"' : ''),
+        (params.name ? '{Theatre} = "' + params.name + '"' : '')
     ]
 
     // Remove null search terms
@@ -25,7 +26,7 @@ const theatre = (base, params, callback) => {
     filter = filter + ')'
 
     console.log('Airtable Query: ' + filter)
-    
+
     // Get data from Airtable
     theatres.select({
         view: 'Grid view',
