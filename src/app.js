@@ -15,7 +15,7 @@ const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process
 
 const app = express()
 // Default to 3000 if PORT not set
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3001
 
 // Define paths for Express config
 const viewsPath = path.join(__dirname, '../templates/views')
@@ -26,14 +26,11 @@ app.set('view engine', 'hbs')
 app.set('views', viewsPath)
 hbs.registerPartials(partialsPath)
 
-// Setup static directory to serve
-app.use(express.static(path.join(__dirname, '../public')))
+// Serve react content
+app.use(express.static(path.join(__dirname, '../client/build')))
 
-app.get('', (req, res) => {
-    res.render('index', {
-        title: 'Theatre Search',
-        name: 'Seth Sacher'
-    })
+app.get('/express_backend', (req, res) => {
+    res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' })
 })
 
 // app.get('/help', (req, res) => {
