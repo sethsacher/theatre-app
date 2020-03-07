@@ -26,6 +26,10 @@ fetch('/refData').then((res) => {
             for ( const index in states ) {
                 addDropdownOption('state', states[index])
             }
+
+            // Vaudeville
+            addDropdownOption('vaudeville', '')
+            addDropdownOption('vaudeville', '1')
         }
     })
 
@@ -44,7 +48,8 @@ theatreForm.addEventListener('submit', (e) => {
     const searchQuery = {
         city: document.getElementById('city').value,
         state: document.getElementById('state').value,
-        name: document.getElementById('name').value
+        name: document.getElementById('name').value,
+        vaudeville: document.getElementById('vaudeville').value
     }
 
     const isEmpty = (value) => {
@@ -57,7 +62,7 @@ theatreForm.addEventListener('submit', (e) => {
 
     const params = $.param(searchQuery)
 
-    // console.log('Theater Search Params: ' + params)
+    console.log('Theater Search Params: ' + params)
 
     fetch('/theatre?' + params).then((res) => {
 

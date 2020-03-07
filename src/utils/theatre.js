@@ -8,7 +8,8 @@ const theatre = (base, params, callback) => {
     const searchArray = [
         (params.city ? '{City} = "' + params.city + '"' : ''),
         (params.state ? '{State} = "' + params.state + '"' : ''),
-        (params.name ? '{Theatre} = "' + params.name + '"' : '')
+        (params.name ? '{Theatre} = "' + params.name + '"' : ''),
+        (params.vaudeville ? '{Primarily Vaudeville} = "' + params.vaudeville + '"' : '')
     ]
 
     // Remove null search terms
