@@ -8,6 +8,9 @@ const message2 = document.querySelector('#message-2')
 const showData = document.getElementById("showData")
 
 // Load reference data
+const stateDefault = 'State of Theatre'
+const vaudvilleDefault = 'Primarily Vaudeville'
+
 const addDropdownOption = (elementId, newOption) => {
     var select = document.getElementById(elementId)
     select.options[select.options.length] = new Option(newOption)
@@ -21,15 +24,12 @@ fetch('/refData').then((res) => {
         } else {
 
             // State
-            addDropdownOption('state', '')
+            addDropdownOption('state', stateDefault)
             const states = data.refData.states
             for ( const index in states ) {
                 addDropdownOption('state', states[index])
             }
 
-            // Vaudeville
-            addDropdownOption('vaudeville', '')
-            addDropdownOption('vaudeville', '1')
         }
     })
 
@@ -47,16 +47,16 @@ theatreForm.addEventListener('submit', (e) => {
     // Construct search query
     const searchQuery = {
         city: document.getElementById('city').value,
-        state: document.getElementById('state').value,
+        state: (document.getElementById('state').value === stateDefault ? '' : document.getElementById('state').value),
         name: document.getElementById('name').value,
-        vaudeville: document.getElementById('vaudeville').value,
+        vaudeville: (document.getElementById('vaudeville').checked ? '1' : ''),
         manager: document.getElementById('manager').value,
         year: document.getElementById('year').value,
         circuit: document.getElementById('circuit').value
     }
 
     const isEmpty = (value) => {
-        return value == null || value == "";
+        return value == null || value == '';
     }
 
     for(key in searchQuery)
