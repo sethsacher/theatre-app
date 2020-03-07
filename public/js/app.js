@@ -13,8 +13,23 @@ const addDropdownOption = (elementId, newOption) => {
     select.options[select.options.length] = new Option(newOption)
 }
 
-addDropdownOption('state', '')
-addDropdownOption('state', 'MA')
+fetch('/refData').then((res) => {
+
+    res.json().then((data) => {
+        if (data.error) {
+            console.log('Error retrieving reference data')
+        } else {
+
+            // State
+            addDropdownOption('state', '')
+            const states = data.refData.states
+            for ( const index in states ) {
+                addDropdownOption('state', states[index])
+            }
+        }
+    })
+
+})
 
 // Get data on Submit
 theatreForm.addEventListener('submit', (e) => {

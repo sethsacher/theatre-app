@@ -106,6 +106,10 @@ app.get('/theatre', (req, res) => {
 
 app.get('/refData', (req, res) => {
     refData((error, refData) => {
+        if (error) {
+            return res.send({error})
+        } 
+        
         res.send({
             refData
         }) 
