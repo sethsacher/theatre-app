@@ -34,7 +34,8 @@ const theatre = (base, params, callback) => {
     // Get data from Airtable
     theatres.select({
         view: 'Grid view',
-        filterByFormula: filter
+        filterByFormula: filter,
+        fields: ["Theatre_ID", "Theatre", "City", "Circuit Name"]
     }).firstPage((err, records) => {
         if (err) {
             console.error(err)

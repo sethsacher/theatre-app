@@ -11,6 +11,10 @@ const showData = document.getElementById("showData")
 const stateDefault = 'State of Theatre'
 const vaudvilleDefault = 'Primarily Vaudeville'
 
+const isEmpty = (value) => {
+    return value == null || value == '';
+}
+
 const addDropdownOption = (elementId, newOption) => {
     var select = document.getElementById(elementId)
     select.options[select.options.length] = new Option(newOption)
@@ -26,7 +30,7 @@ fetch('/refData').then((res) => {
             // State
             addDropdownOption('state', stateDefault)
             const states = data.refData.states
-            for ( const index in states ) {
+            for (const index in states) {
                 addDropdownOption('state', states[index])
             }
 
@@ -55,13 +59,9 @@ theatreForm.addEventListener('submit', (e) => {
         circuit: document.getElementById('circuit').value
     }
 
-    const isEmpty = (value) => {
-        return value == null || value == '';
-    }
-
-    for(key in searchQuery)
-        if(isEmpty(searchQuery[key]))
-            delete searchQuery[key]; 
+    for (key in searchQuery)
+        if (isEmpty(searchQuery[key]))
+            delete searchQuery[key];
 
     const params = $.param(searchQuery)
 
@@ -79,13 +79,30 @@ theatreForm.addEventListener('submit', (e) => {
                 message1.textContent = undefined
                 message2.textContent = undefined
                 showData.textContent = undefined
-                createTableFromJSON(data.records)
+                createResultsForDisplay(data.records)
             }
         })
 
     })
 
 })
+
+const createResultsForDisplay = (records) => {
+    var results
+    records.forEach((record) => {
+        (isEmpty(results) ? results = createSingleResult(record) : results = results + createSingleResult(record))
+    })
+
+    // Add results to the page
+    var divContainer = document.getElementById("showData")
+    divContainer.innerHTML = results
+}
+
+const createSingleResult = (record) => {
+    return '<div>' +
+        '<a href="/theatre/' + record.Theatre_ID + '">' + record.Theatre + ' | ' + record.City + ' | ' + record['Circuit Name'] + '</a>'
+        + '</div>'
+}
 
 const createTableFromJSON = (json) => {
     // EXTRACT VALUE FOR HTML HEADER. 
@@ -120,7 +137,7 @@ const createTableFromJSON = (json) => {
         for (var j = 0; j < col.length; j++) {
             var tabCell = tr.insertCell(-1);
             // Create link on the first column to the Theatre_ID
-            (j===0 ? tabCell.innerHTML = '<a href="/theatre/' + json[i][col[8]] + '">' + json[i][col[j]] + '</a>' : tabCell.innerHTML = json[i][col[j]])
+            (j === 0 ? tabCell.innerHTML = '<a href="/theatre/' + json[i][col[8]] + '">' + json[i][col[j]] + '</a>' : tabCell.innerHTML = json[i][col[j]])
         }
     }
 
