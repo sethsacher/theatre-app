@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Theatre {{theatreId}}</title>
+    <title>{{record.Theatre}}</title>
     <link rel="icon" href="/img/favicon.ico">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -11,7 +11,14 @@
 <body>
     <div class="main-content">
         {{>header}}
-        <p>The ID selected is: {{theatreId}}</p>
+
+        Theatre: {{record.Theatre}}</br>
+        City: {{record.City}}</br>
+        State: {{record.State}}</br>
+        Source of Info: {{record.[Source of Info]}}</br>
+        Primarilly Vaudeville: {{record.[Primarily Vaudeville]}}</br>
+        Years active: {{record.[Years active]}}</br>
+        Circuit Name: {{record.[Circuit Name]}}
         {{>footer}}
 
         {{!-- Has to run AFTER page content is loaded --}}

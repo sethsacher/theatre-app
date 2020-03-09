@@ -101,7 +101,7 @@ const createResultsForDisplay = (records) => {
 const createSingleResult = (record) => {
     return '<div>' +
         '<a href="/theatre/' + record.Theatre_ID + '">' + record.Theatre + '</a>'
-        + ' | ' + record.City + ' | ' + record['Circuit Name'] +
+        + ' | ' + record.City + ' | ' + record['Circuit Name']
         + '</div>'
 }
 

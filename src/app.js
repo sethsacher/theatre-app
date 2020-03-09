@@ -11,6 +11,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
+const theatres = base('Theatres')
 
 const app = express()
 // Default to 3000 if PORT not set
@@ -37,11 +38,19 @@ app.get('', (req, res) => {
 
 // Dynamic route for theatre details
 app.get('/theatre/:id', function (req, res) {
-    res.render('theatre-details', {
-        title: 'Theatre ' + req.params.id,
-        name: 'Seth Sacher',
-        theatreId: req.params.id
+    theatres.find(req.params.id, function(err, record) {
+        if (err) { 
+            console.error(err)
+            return res.send({err})
+        }
+
+        res.render('theatre-details', {
+            title: record.fields.Theatre,
+            name: 'Seth Sacher',
+            record: record.fields
+        })
     })
+    
 });
 
 app.get('/history', (req, res) => {
