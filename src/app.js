@@ -6,11 +6,10 @@ const Airtable = require('airtable')
 const theatre = require('./utils/theatre')
 const refData = require('./utils/refData')
 
-if(process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
 }
 
-// TODO: Better API Key management
 const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
 
 const app = express()
@@ -36,13 +35,14 @@ app.get('', (req, res) => {
     })
 })
 
-// app.get('/help', (req, res) => {
-//     res.render('help', {
-//         helpText: 'Come here to get help',
-//         title: 'Help',
-//         name: 'Seth Sacher'
-//     })
-// })
+// Dynamic route for theatre details
+app.get('/theatre/:id', function (req, res) {
+    res.render('theatre-details', {
+        title: 'Theatre ' + req.params.id,
+        name: 'Seth Sacher',
+        theatreId: req.params.id
+    })
+});
 
 app.get('/history', (req, res) => {
     res.render('history', {
@@ -80,12 +80,12 @@ app.get('/additional-information', (req, res) => {
 })
 
 app.get('/theatre', (req, res) => {
-   
+
     const isEmpty = (obj) => {
         return Object.keys(obj).length === 0;
     }
 
-    if(isEmpty(req.query)) {
+    if (isEmpty(req.query)) {
         return res.send({
             error: 'You must provide a search term.'
         })
@@ -95,24 +95,24 @@ app.get('/theatre', (req, res) => {
 
     theatre(base, params, (error, records) => {
         if (error) {
-            return res.send({error})
-        } 
+            return res.send({ error })
+        }
 
         res.send({
             records
         })
-    }) 
+    })
 })
 
 app.get('/refData', (req, res) => {
     refData((error, refData) => {
         if (error) {
-            return res.send({error})
-        } 
-        
+            return res.send({ error })
+        }
+
         res.send({
             refData
-        }) 
+        })
     })
 })
 
