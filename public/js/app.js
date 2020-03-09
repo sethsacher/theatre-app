@@ -119,7 +119,8 @@ const createTableFromJSON = (json) => {
 
         for (var j = 0; j < col.length; j++) {
             var tabCell = tr.insertCell(-1);
-            tabCell.innerHTML = json[i][col[j]];
+            // Create link on the first column to the Theatre_ID
+            (j===0 ? tabCell.innerHTML = '<a href="/theatre/' + json[i][col[8]] + '">' + json[i][col[j]] + '</a>' : tabCell.innerHTML = json[i][col[j]])
         }
     }
 
