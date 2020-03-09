@@ -53,6 +53,13 @@ app.get('/theatre/:id', function (req, res) {
     
 });
 
+app.get('/editor', (req, res) => {
+    res.render('editor', {
+        title: 'Editor',
+        name: 'Seth Sacher'
+    })
+})
+
 app.get('/history', (req, res) => {
     res.render('history', {
         title: 'A Short History of Road Houses and Theatre Circuits',
