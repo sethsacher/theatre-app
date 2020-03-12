@@ -81,9 +81,9 @@ app.get('/about', (req, res) => {
     })
 })
 
-app.get('/additional-information', (req, res) => {
-    res.render('additional-information', {
-        title: 'Additional Information and Other Resources',
+app.get('/sources', (req, res) => {
+    res.render('sources', {
+        title: 'Sources',
         name: 'Seth Sacher'
     })
 })
