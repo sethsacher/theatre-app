@@ -8,8 +8,7 @@ const message2 = document.querySelector('#message-2')
 const showData = document.getElementById("showData")
 
 // Load reference data
-const stateDefault = 'State of Theatre'
-const vaudvilleDefault = 'Primarily Vaudeville'
+const stateDefault = ''
 
 const isEmpty = (value) => {
     return value == null || value == '';
