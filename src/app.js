@@ -1,8 +1,10 @@
+const fs = require('fs')
 const path = require('path')
 const url = require('url')
 const express = require('express')
 const hbs = require('hbs')
 const Airtable = require('airtable')
+const XMLSerializer = require('xmlserializer')
 const theatre = require('./utils/theatre')
 const refData = require('./utils/refData')
 
@@ -38,10 +40,10 @@ app.get('', (req, res) => {
 
 // Dynamic route for theatre details
 app.get('/theatre/:id', function (req, res) {
-    theatres.find(req.params.id, function(err, record) {
-        if (err) { 
+    theatres.find(req.params.id, function (err, record) {
+        if (err) {
             console.error(err)
-            return res.send({err})
+            return res.send({ err })
         }
 
         res.render('theatre-details', {
@@ -50,14 +52,35 @@ app.get('/theatre/:id', function (req, res) {
             record: record.fields
         })
     })
-    
+
 });
 
-app.get('/editor', (req, res) => {
-    res.render('editor', {
-        title: 'Editor',
-        name: 'Seth Sacher'
-    })
+app.get('/editor/:page', (req, res) => {
+    try {
+        const dataBuffer = fs.readFileSync('./templates/views/help.html')
+        const html = dataBuffer.toString()
+        res.render('editor', {
+            html
+        })
+    } catch (e) {
+        res.send({
+            error: e
+        })
+    }
+})
+
+app.get('/editor/:page/html', (req, res) => {
+    try {
+        const dataBuffer = fs.readFileSync('./templates/views/help.hbs')
+        const html = dataBuffer.toString()
+        res.send({
+            html
+        })
+    } catch (e) {
+        res.send({
+            error: e
+        })
+    }
 })
 
 app.get('/history', (req, res) => {
