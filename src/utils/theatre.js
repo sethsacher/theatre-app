@@ -6,12 +6,12 @@ const theatre = (base, params, callback) => {
 
     // Array of basic search terms
     const searchArray = [
-        (params.city ? '{City} = "' + params.city + '"' : ''),
+        (params.city ? 'FIND("' + params.city +'", {City}, 0)' : ''),
         (params.state ? '{State} = "' + params.state + '"' : ''),
-        (params.name ? '{Theatre} = "' + params.name + '"' : ''),
+        (params.name ? 'FIND("' + params.name +'", {Theatre}, 0)' : ''),
         (params.vaudeville ? '{Primarily Vaudeville} = "' + params.vaudeville + '"' : ''),
-        (params.manager ? '{Manager} = "' + params.manager + '"' : ''),
-        (params.year ? '{Years active} = "' + params.year + '"' : ''),
+        (params.manager ? 'FIND("' + params.manager +'", {Manager}, 0)' : ''),
+        (params.year ? 'FIND("' + params.year +'", {Years active}, 0)' : ''),
         (params.circuit ? '{Circuit Name} = "' + params.circuit + '"' : '')
     ]
 
