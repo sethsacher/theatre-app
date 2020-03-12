@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, '../public')))
 app.get('', (req, res) => {
     res.render('index', {
         title: 'Internet Theatre Circuit Database',
-        name: 'Seth Sacher'
+        name: 'Internet Theatre Circuit Database'
     })
 })
 
@@ -46,7 +46,7 @@ app.get('/theatre/:id', function (req, res) {
 
         res.render('theatre-details', {
             title: record.fields.Theatre,
-            name: 'Seth Sacher',
+            name: 'Internet Theatre Circuit Database',
             record: record.fields
         })
     })
@@ -56,35 +56,35 @@ app.get('/theatre/:id', function (req, res) {
 app.get('/history', (req, res) => {
     res.render('history', {
         title: 'A Short History of Road Houses and Theatre Circuits',
-        name: 'Seth Sacher'
+        name: 'Internet Theatre Circuit Database'
     })
 })
 
 app.get('/circuits', (req, res) => {
     res.render('circuits', {
         title: 'Sample Circuits',
-        name: 'Seth Sacher'
+        name: 'Internet Theatre Circuit Database'
     })
 })
 
 app.get('/guide', (req, res) => {
     res.render('guide', {
         title: 'The Julius Cahn Official Theatrical Guides',
-        name: 'Seth Sacher'
+        name: 'Internet Theatre Circuit Database'
     })
 })
 
 app.get('/about', (req, res) => {
     res.render('about', {
         title: 'What’s in this database',
-        name: 'Seth Sacher'
+        name: 'Internet Theatre Circuit Database'
     })
 })
 
 app.get('/sources', (req, res) => {
     res.render('sources', {
         title: 'Sources',
-        name: 'Seth Sacher'
+        name: 'Internet Theatre Circuit Database'
     })
 })
 
@@ -129,7 +129,7 @@ app.get('/refData', (req, res) => {
 //     res.render('error', {
 //         errorText: 'Help article not found',
 //         title: '404 Help',
-//         name: 'Seth Sacher'
+//         name: 'Internet Theatre Circuit Database'
 //     })
 // })
 
@@ -137,7 +137,7 @@ app.get('*', (req, res) => {
     res.render('error', {
         errorText: 'Page not found',
         title: '404',
-        name: 'Seth Sacher'
+        name: 'Internet Theatre Circuit Database'
     })
 })
 
